@@ -8,13 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("skill")
-public class SkillsController {
+public class SkillController {
     @Autowired
     SkillRepository skillRepository;
 
@@ -38,14 +36,14 @@ public class SkillsController {
         if (errors.hasErrors()) {
             return "skill/add";
         }
-                SkillRepository.save();
+                skillRepository.save(newSkill);
                 return "redirect:view";
     }
 
     @GetMapping("view/{employerId}")
     public String displayViewEmployer(Model model, @PathVariable int skillId) {
 
-        Optional optSkill = SkillRepository.findById(skillId);
+        Optional optSkill = skillRepository.findById(skillId);
         if (optSkill.isPresent()) {
             Skill skl  = (Skill) optSkill.get();
             model.addAttribute("skill", skl);

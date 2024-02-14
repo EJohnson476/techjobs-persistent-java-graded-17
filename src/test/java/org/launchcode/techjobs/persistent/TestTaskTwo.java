@@ -12,7 +12,10 @@ import mockit.Mocked;
 import org.junit.jupiter.api.Test;
 import org.launchcode.techjobs.persistent.controllers.EmployerController;
 import org.launchcode.techjobs.persistent.models.Employer;
+import org.launchcode.techjobs.persistent.controllers.SkillController;
 import org.launchcode.techjobs.persistent.models.Skill;
+import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
+import org.launchcode.techjobs.persistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -461,7 +464,7 @@ public class TestTaskTwo extends AbstractTest {
         Method indexMethod = null;
 
        // Verify that the index method exists
-        // try {
+         try {
             indexMethod = skillControllerClass.getMethod("index", Model.class);
         } catch (NoSuchMethodException e) {
             fail("SkillController must have an index method that takes a parameter of type Model");
