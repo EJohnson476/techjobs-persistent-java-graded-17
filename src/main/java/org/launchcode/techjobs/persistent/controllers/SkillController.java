@@ -11,22 +11,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("skill")
+@RequestMapping("skills")
 public class SkillController {
     @Autowired
     SkillRepository skillRepository;
 
-    @GetMapping("skill")
+    @GetMapping("skills")
     public String index (Model model)
     {
         model.addAttribute("jobs", skillRepository.findAll() );
-        return "skill/index";
+        return "skills/index";
     }
 
     @GetMapping("add")
     public String displayAddEmployerForm(Model model) {
         model.addAttribute(new Skill());
-        return "skill/add";
+        return "skills/add";
     }
 
     @PostMapping("add")
@@ -34,20 +34,22 @@ public class SkillController {
                                          Errors errors, Model model) {
 
         if (errors.hasErrors()) {
-            return "skill/add";
+            return "skills/add";
         }
-                skillRepository.save(newSkill);
-                return "redirect:view";
+        else {
+            skillRepository.save(newSkill);
+            return "redirect:view";
+        }
     }
 
-    @GetMapping("view/{employerId}")
+    @GetMapping("view/{skillId}")
     public String displayViewEmployer(Model model, @PathVariable int skillId) {
 
         Optional optSkill = skillRepository.findById(skillId);
         if (optSkill.isPresent()) {
             Skill skl  = (Skill) optSkill.get();
             model.addAttribute("skill", skl);
-            return "skill/view";
+            return "skills/view";
         } else {
             return "redirect:../";
         }
